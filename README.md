@@ -1,0 +1,2 @@
+# Clinical-Protocol-Safety-Validator-Medical-LLMs-
+Multi-agent AI system that audits clinical trial protocols for safety gaps, regulatory compliance, and ethical issues using three specialized 7B medical LLMs: Meditron-7B (literature &amp; standards), BioMistral-7B (patient criteria &amp; safety), and Meerkat-7B (FDA/EMA &amp; ethics). Powered by RAG with ChromaDB and real-time PubMed integration.
