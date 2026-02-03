@@ -4,7 +4,7 @@
 
 Built with three domain-specialized 7B medical LLMs in a collaborative architecture, Retrieval-Augmented Generation (RAG), ChromaDB vector storage, and live PubMed evidence retrieval.
 
-## ✨ Core Capabilities
+##  Core Capabilities
 
 - Detects missing safety protections in inclusion/exclusion criteria  
 - Verifies alignment with current standard-of-care & medical literature  
@@ -21,7 +21,7 @@ Built with three domain-specialized 7B medical LLMs in a collaborative architect
 | B     | Inclusion/Exclusion Safety Gaps   | `BioMistral/BioMistral-7B`       | BioMistral     | Drug interactions, contraindications    |
 | C     | Regulatory & Ethical Compliance   | `dmis-lab/meerkat-7b-v1.0`       | DMIS Lab       | Informed consent, GCP, IRB, privacy     |
 
-## 🚀 Quick Start
+##  Quick Start
 
 ```bash
 # Clone
@@ -43,7 +43,7 @@ Click Validate Protocol
 Read summary + detailed findings
 
 Recommended hardware: GPU with ≥16 GB VRAM (quantization helps on 12–16 GB cards)
-⚠️ Critical Safety & Usage Disclaimer
+ Critical Safety & Usage Disclaimer
 This is strictly a research and educational prototype — NOT a medical device or regulatory tool.
 The underlying models carry explicit warnings against clinical deployment:
 
