@@ -1,114 +1,62 @@
 # Clinical Protocol Safety Validator (CPSV)
 
-**Multi-agent AI system** that autonomously audits clinical trial protocols for:
+**An autonomous multi-agent AI system** designed to audit clinical trial protocols for safety risks, regulatory non-compliance, and ethical issues **before human trials begin**.
 
-- Safety gaps (patient protection risks)
-- Regulatory compliance issues (FDA/EMA guidelines)
-- Ethical concerns
+Built with three domain-specialized 7B medical LLMs in a collaborative architecture, Retrieval-Augmented Generation (RAG), ChromaDB vector storage, and live PubMed evidence retrieval.
 
-Built with **three specialized 7B medical LLMs** working together, powered by **RAG** (ChromaDB + real-time PubMed integration).
+## ✨ Core Capabilities
 
-## Overview
+- Detects missing safety protections in inclusion/exclusion criteria  
+- Verifies alignment with current standard-of-care & medical literature  
+- Checks FDA/EMA regulatory requirements & ethical standards  
+- Produces structured findings with severity, evidence, and recommendations  
+- Runs agents in parallel for faster analysis  
+- User-friendly Gradio interface for protocol upload & report generation
 
-This project uses a coordinated multi-agent architecture to analyze uploaded clinical trial protocols before they proceed to human trials. It helps identify potential issues that could harm patients or violate regulations.
+## Agents
 
-### Agents
-- **Agent A** – Literature & Standard-of-Care Checker  
-  Model: `epfl-llm/meditron-7b` (EPFL)  
-  Focus: Alignment with current medical guidelines and PubMed literature
+| Agent | Role                              | Model ID                          | Developer      | Focus Area                              |
+|-------|-----------------------------------|-----------------------------------|----------------|-----------------------------------------|
+| A     | Literature & Standard-of-Care     | `epfl-llm/meditron-7b`           | EPFL           | PubMed + clinical guidelines alignment  |
+| B     | Inclusion/Exclusion Safety Gaps   | `BioMistral/BioMistral-7B`       | BioMistral     | Drug interactions, contraindications    |
+| C     | Regulatory & Ethical Compliance   | `dmis-lab/meerkat-7b-v1.0`       | DMIS Lab       | Informed consent, GCP, IRB, privacy     |
 
-- **Agent B** – Inclusion/Exclusion & Safety Gap Detector  
-  Model: `BioMistral/BioMistral-7B`  
-  Focus: Missing protections, drug interactions, contraindicated conditions, vulnerable populations
-
-- **Agent C** – Regulatory & Ethical Compliance Reviewer  
-  Model: `dmis-lab/meerkat-7b-v1.0` (DMIS Lab)  
-  Focus: Informed consent, adverse event reporting, IRB processes, GCP, privacy
-
-### Core Technologies
-- Retrieval-Augmented Generation (RAG) via ChromaDB
-- Real-time PubMed API integration
-- Parallel agent execution (ThreadPoolExecutor)
-- Gradio web UI for easy protocol submission and report viewing
-
-## Installation
+## 🚀 Quick Start
 
 ```bash
-# 1. Clone the repository
+# Clone
 git clone https://github.com/sufirumii/Clinical-Protocol-Safety-Validator-Medical-LLMs-.git
 cd Clinical-Protocol-Safety-Validator-Medical-LLMs-
 
-# 2. Install dependencies (Python 3.10+ recommended)
-pip install torch gradio transformers requests chromadb accelerate
+# Install
+pip install -r requirements.txt
+# or directly:
+# pip install torch gradio transformers requests chromadb accelerate bitsandbytes
 
-# Optional: better memory management for 7B models
-pip install bitsandbytes
-Hardware note: Requires a GPU with ~16–24 GB VRAM for comfortable inference (or use 4/8-bit quantization via bitsandbytes).
-Quick Start
-Bash# Launch the Gradio interface
-python main.py    # or whatever your entry script is named
+# Launch
+python main.py
 
-Open the local URL shown in terminal (usually http://127.0.0.1:7860)
-Click Initialize System → wait for models to load (first time takes longest)
-Paste your clinical trial protocol text (include condition, treatment, study drug, inclusion/exclusion criteria, etc.)
+Open the Gradio link (usually http://127.0.0.1:7860)
+Click Initialize System (first load takes time – models are ~7B each)
+Paste protocol text (include condition, treatment, drug, criteria, etc.)
 Click Validate Protocol
-Review: Executive Summary, Findings Table, Detailed Analysis
+Read summary + detailed findings
 
-Important Advisory & Safety Notice
-This is a research / educational prototype — NOT for clinical or production use.
-All three base models (Meditron, BioMistral, Meerkat) carry explicit warnings against deployment in real medical settings without:
+Recommended hardware: GPU with ≥16 GB VRAM (quantization helps on 12–16 GB cards)
+⚠️ Critical Safety & Usage Disclaimer
+This is strictly a research and educational prototype — NOT a medical device or regulatory tool.
+The underlying models carry explicit warnings against clinical deployment:
 
-Extensive alignment & safety testing
-Randomized controlled trials in real-world practice
-Professional medical/regulatory oversight
+No real-world clinical validation or randomized trials have been performed
+Outputs may contain hallucinations, biases, or incomplete reasoning
+Never use results for: patient safety decisions, trial approval, IRB submission, or any action affecting human health
 
-Do NOT rely on CPSV outputs for:
-
-Patient safety decisions
-Trial protocol approval
-Regulatory submissions
-Any action that could impact human health
-
-Always involve qualified clinicians, regulatory experts, and ethics committees.
-Models & References
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-AgentHugging Face IDBase ModelDeveloperKey Paper / CitationAepfl-llm/meditron-7bLlama-2EPFL LLM TeamarXiv:2311.16079BBioMistral/BioMistral-7BMistralBioMistral TeamarXiv:2402.10373Cdmis-lab/meerkat-7b-v1.0MistralDMIS Labnpj Digital Medicine (2025) – Small LMs from Textbooks
-Citation
-If this project is useful in your research, please cite:
+Always require review by qualified physicians, regulatory affairs professionals, and ethics committees.
+Use at your own risk. For research purposes only.
+References & Citations
+Please cite if this work is useful:
 bibtex@misc{cpsv2026,
-  title = {Clinical Protocol Safety Validator: Multi-Agent LLM System for Clinical Trial Protocol Auditing},
+  title = {Clinical Protocol Safety Validator – Multi-Agent Auditing of Clinical Trial Protocols},
   author = {Rumii},
   year = {2026},
   url = {https://github.com/sufirumii/Clinical-Protocol-Safety-Validator-Medical-LLMs-}
@@ -117,28 +65,19 @@ bibtex@misc{cpsv2026,
 @misc{chen2023meditron,
   title={MEDITRON-70B: Scaling Medical Pretraining for Large Language Models},
   author={Zeming Chen and others},
-  year={2023},
-  eprint={2311.16079},
-  archivePrefix={arXiv}
+  year={2023}, eprint={2311.16079}
 }
 
 @misc{labrak2024biomistral,
   title={BioMistral: A Collection of Open-Source Pretrained Large Language Models for Medical Domains},
   author={Yanis Labrak and others},
-  year={2024},
-  eprint={2402.10373},
-  archivePrefix={arXiv}
+  year={2024}, eprint={2402.10373}
 }
 
 @article{kim2025small,
   title={Small language models learn enhanced reasoning skills from medical textbooks},
   author={Hyunjae Kim and others},
   journal={npj Digital Medicine},
-  volume={8},
-  number={1},
-  pages={240},
-  year={2025},
-  publisher={Nature Publishing Group UK London}
+  volume={8}, number={1}, pages={240},
+  year={2025}
 }
-License
-Apache-2.0 – compatible with the base model licenses.
